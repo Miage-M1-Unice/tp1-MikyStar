@@ -1,9 +1,9 @@
-package TP1;
+package TP1.Exercices;
 
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class Exercice1
+public class Exercice1A
 {
     public void myLs()
     {
