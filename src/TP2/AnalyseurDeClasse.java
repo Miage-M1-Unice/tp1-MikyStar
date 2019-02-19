@@ -20,10 +20,10 @@ public class AnalyseurDeClasse
 
         afficheEnTeteClasse( nomClasse );
 
-        System.out.println();
+        System.out.println( "\n\t// Champs");
         afficheAttributs(cl);
 
-        System.out.println();
+        System.out.println( "\n\t// Constructeurs");
         afficheConstructeurs(cl);
 
         System.out.println();
@@ -84,9 +84,10 @@ public class AnalyseurDeClasse
 
     public static void afficheConstructeurs(Class cl)
     {
-        // CODE A ECRIRE
-        System.out.println("{}");
-
+        for( Constructor constructor : cl.getConstructors() )
+        {
+            System.out.println( "\t" + constructor + ";" );
+        }
     }
 
     public static void afficheMethodes(Class cl)
