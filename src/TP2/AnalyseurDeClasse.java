@@ -20,13 +20,13 @@ public class AnalyseurDeClasse
 
         afficheEnTeteClasse( nomClasse );
 
-        System.out.println( "\n\t// Champs");
+        System.out.println( "\n\t// Champs" );
         afficheAttributs(cl);
 
-        System.out.println( "\n\t// Constructeurs");
+        System.out.println( "\n\t// Constructeurs" );
         afficheConstructeurs(cl);
 
-        System.out.println();
+        System.out.println( "\n\t// Methods");
         afficheMethodes(cl);
 
         // L'accolade fermante de fin de classe !
@@ -92,8 +92,21 @@ public class AnalyseurDeClasse
 
     public static void afficheMethodes(Class cl)
     {
-        // CODE A ECRIRE
-        System.out.println("{}");
+        for( Method method : cl.getDeclaredMethods() )
+        {
+            String modifier = Modifier.toString( method.getModifiers() );
+            String returnType = method.getReturnType().getSimpleName();
+            String methodName = method.getName();
+
+            StringBuilder signature = new StringBuilder();
+            for( int i = 0; i < method.getParameters().length; i++ )
+            {
+                signature.append( method.getParameters()[ i ].getClass().getSimpleName() );
+            }
+
+
+            System.out.println( "\t" + modifier + " " + returnType + " " + methodName + "( " + signature + " );" );
+        }
     }
 
     public static String litChaineAuClavier() throws IOException
