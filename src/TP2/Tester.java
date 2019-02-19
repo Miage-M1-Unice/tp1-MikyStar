@@ -2,13 +2,13 @@ package TP2;
 
 import java.awt.*;
 
-public class Main
+public class Tester
 {
     public static void main( String[] args )
     {
         try
         {
-            System.out.println( AnalyseurDeClasse.getClasse( "java.awt.Point" ) );
+            AnalyseurDeClasse.afficheEnTeteClasse( "java.awt.Point" );
         }
         catch (ClassNotFoundException e)
         {

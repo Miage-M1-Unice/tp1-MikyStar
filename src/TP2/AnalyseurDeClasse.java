@@ -18,7 +18,7 @@ public class AnalyseurDeClasse
         // Récupération d'un objet de type Class correspondant au nom passé en paramètres
         Class cl = getClasse( nomClasse ); // CODE A ECRIRE !
 
-        afficheEnTeteClasse( cl );
+        afficheEnTeteClasse( nomClasse );
 
         System.out.println();
         afficheAttributs(cl);
@@ -35,29 +35,42 @@ public class AnalyseurDeClasse
 
 
     /** Retourne la classe dont le nom est passé en paramètre */
-    public static Class getClasse(String nomClasse ) throws ClassNotFoundException
+    public static Class getClasse( String nomClasse ) throws ClassNotFoundException
     {
         return Class.forName( nomClasse );
     }
 
     /** Cette méthode affiche par ex "public class Toto extends Tata implements Titi, Tutu {" */
-    public static void afficheEnTeteClasse(Class cl)
+    public static void afficheEnTeteClasse( String nomClasse ) throws ClassNotFoundException
     {
+        Class cl = getClasse( nomClasse );
+
         //  Affichage du modifier et du nom de la classe
         // CODE A ECRIRE
+        // TODO
+        System.out.print( getClasse( nomClasse ) );
 
-        // Récupération de la superclasse si elle existe (null si cl est le type Object)
-        Class supercl = null;// CODE A ECRIRE
 
-        // On ecrit le "extends " que si la superclasse est non nulle et
-        // différente de Object
-        // CODE A ECRIRE
+        // Superclass
+        if( ( cl.getSuperclass() != null ) && ( cl.getSuperclass() != Object.class ) )
+            System.out.print( " extends " + cl.getSuperclass() );
 
-        // Affichage des interfaces que la classe implemente
-        // CODE A ECRIRE
+        // Interfaces
+        if( cl.getInterfaces().length != 0 )
+        {
+            System.out.print( " implements " );
 
-        // Enfin, l'accolade ouvrante !
-        System.out.print(" {\n");
+            for( int i = 0; i < cl.getInterfaces().length; i++ )
+            {
+                System.out.print( cl.getInterfaces()[ i ].getSimpleName() );
+
+                if( i != ( cl.getInterfaces().length - 1 ) )
+                    System.out.print( ", " );
+            }
+        }
+
+
+        System.out.print(" \n{\n"); // ! Parce que c'est de cette manière qu'un beau code est indenté
     }
 
     public static void afficheAttributs(Class cl)
