@@ -8,7 +8,7 @@ public class Tester
     {
         try
         {
-            AnalyseurDeClasse.afficheEnTeteClasse( "java.awt.Point" );
+            AnalyseurDeClasse.analyseClasse( "java.awt.Point" );
         }
         catch (ClassNotFoundException e)
         {

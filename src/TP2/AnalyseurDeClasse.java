@@ -66,12 +66,20 @@ public class AnalyseurDeClasse
             }
         }
 
-        System.out.print(" \n{\n"); // ! Parce que c'est de cette manière qu'un beau code est indenté
+        System.out.print(" \n{"); // ! Parce que c'est de cette manière qu'un beau code est indenté
     }
 
     public static void afficheAttributs(Class cl)
     {
-        // CODE A ECRIRE
+        Field[] fields = cl.getFields();
+
+        for( Field aField : fields )
+        {
+            String modifier = Modifier.toString( aField.getModifiers() );
+            String aclass = aField.getType().getSimpleName();
+
+            System.out.println( "\t" + modifier + " " + aclass + " " + aField.getName() + ";" );
+        }
     }
 
     public static void afficheConstructeurs(Class cl)
