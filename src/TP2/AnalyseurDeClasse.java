@@ -45,11 +45,8 @@ public class AnalyseurDeClasse
     {
         Class cl = getClasse( nomClasse );
 
-        //  Affichage du modifier et du nom de la classe
-        // CODE A ECRIRE
-        // TODO
-        System.out.print( getClasse( nomClasse ) );
-
+        // Accesseurs
+        System.out.print( Modifier.toString( cl.getModifiers() ) + " " + getClasse( nomClasse ) );
 
         // Superclass
         if( ( cl.getSuperclass() != null ) && ( cl.getSuperclass() != Object.class ) )
@@ -68,7 +65,6 @@ public class AnalyseurDeClasse
                     System.out.print( ", " );
             }
         }
-
 
         System.out.print(" \n{\n"); // ! Parce que c'est de cette manière qu'un beau code est indenté
     }
