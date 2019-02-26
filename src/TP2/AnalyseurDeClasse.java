@@ -59,7 +59,7 @@ public class AnalyseurDeClasse
 
             for( int i = 0; i < cl.getInterfaces().length; i++ )
             {
-                System.out.print( cl.getInterfaces()[ i ].getSimpleName() );
+                System.out.print( cl.getInterfaces()[ i ] );
 
                 if( i != ( cl.getInterfaces().length - 1 ) )
                     System.out.print( ", " );
