@@ -35,10 +35,50 @@ public class GenericToString
         for( int i = 0; i < fields.length; i++ )
         {
             Field aField = fields[ i ];
-            stringBuilder.append( aField.getName() ).append( "=" ).append( aField.get(object) );
 
-            if( ( fields.length > 1 ) && ( i != ( fields.length -1 ) ) )
-                stringBuilder.append( "; " );
+            if( !aField.getClass().isArray() )
+            {
+                if( !aField.getClass().isPrimitive() )
+                {
+                    stringBuilder.append( aField.getName() ).append( "=" ).append( aField.get(object) );
+
+                    if( ( fields.length > 1 ) && ( i != ( fields.length -1 ) ) )
+                        stringBuilder.append( "; " );
+                }
+                else
+                {
+                    stringBuilder.append( toString( aField ) );
+                }
+            }
+            else
+            {
+                toStringArray( (Object[]) aField.get( object ) );
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private String toStringArray( Object[] array ) throws IllegalAccessException
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if( array.getClass().isPrimitive() )
+        {
+            for( int i = 0; i < array.length; i++ )
+            {
+                stringBuilder.append( array[ i ].toString() );
+
+                if( ( array.length > 1 ) && ( i != ( array.length -1 ) ) )
+                    stringBuilder.append( ", " );
+            }
+        }
+        else
+        {
+            for( int i = 0; i < array.length; i++)
+            {
+                stringBuilder.append( retrieveFieldsWithTheirValues( array[ i ] ) );
+            }
         }
 
         return stringBuilder.toString();
