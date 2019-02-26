@@ -26,7 +26,7 @@ public class AnalyseurDeClasse
         System.out.println( "\n\t// Constructeurs" );
         afficheConstructeurs(cl);
 
-        System.out.println( "\n\t// Methods");
+        System.out.println( "\n\t// Méthodes");
         afficheMethodes(cl);
 
         // L'accolade fermante de fin de classe !
@@ -101,13 +101,11 @@ public class AnalyseurDeClasse
             StringBuilder signature = new StringBuilder();
             for( int i = 0; i < method.getParameters().length; i++ )
             {
-                //String parameter = method.getParameterTypes()[ i ].getName();
                 signature.append( method.getParameterTypes()[ i ].getName() );
 
                 if( ( method.getParameters().length > 1 ) && (i != ( method.getParameters().length ) -1 ) )
                     signature.append( ", " );
             }
-
 
             System.out.println( "\t" + modifier + " " + returnType + " " + methodName + "(" + signature + ");" );
         }
@@ -119,6 +117,8 @@ public class AnalyseurDeClasse
         return br.readLine();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
     public static void main(String[] args)
     {
         boolean ok = false;
@@ -129,6 +129,8 @@ public class AnalyseurDeClasse
             {
                 System.out.print("Entrez le nom d'une classe (ex : java.util.Date): ");
                 String nomClasse = litChaineAuClavier();
+
+                System.out.println();
 
                 analyseClasse(nomClasse);
 
