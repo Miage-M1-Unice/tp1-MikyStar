@@ -7,6 +7,8 @@ import java.lang.reflect.Field;
 
 public class GenericToString
 {
+    static int depthCounter = 0;
+
     public String toString( Object object ) throws IllegalAccessException
     {
         return toString( object, -1);
@@ -18,7 +20,7 @@ public class GenericToString
 
         stringBuilder.append( object.getClass().getName() );
         stringBuilder.append( "[" );
-        stringBuilder.append( retrieveFieldsWithTheirValues( object ) );
+        stringBuilder.append( retrieveFieldsWithTheirValues( object, depth ) );
         stringBuilder.append( "; serialVersionUID=" ).append( getSerialVersionUID( object ) );
         stringBuilder.append( "]" );
 
@@ -26,7 +28,7 @@ public class GenericToString
         return stringBuilder.toString();
     }
 
-    private String retrieveFieldsWithTheirValues( Object object ) throws IllegalAccessException
+    private String retrieveFieldsWithTheirValues( Object object, int depth ) throws IllegalAccessException
     {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -36,9 +38,11 @@ public class GenericToString
         {
             Field aField = fields[ i ];
 
-            if( !aField.getClass().isArray() )
+            Class fieldClass = aField.getType();
+
+            if( !fieldClass.isArray() )
             {
-                if( !aField.getClass().isPrimitive() )
+                if( fieldClass.isPrimitive() )
                 {
                     stringBuilder.append( aField.getName() ).append( "=" ).append( aField.get(object) );
 
@@ -47,19 +51,24 @@ public class GenericToString
                 }
                 else
                 {
-                    stringBuilder.append( toString( aField ) );
+                    if( depthCounter < depth )
+                    {
+                        depth++;
+                        stringBuilder.append( toString( aField ) );
+                    }
                 }
             }
             else
             {
-                toStringArray( (Object[]) aField.get( object ) );
+                Object[] theArray = (Object[]) aField.get( object );
+                toStringArray( theArray, depth );
             }
         }
 
         return stringBuilder.toString();
     }
 
-    private String toStringArray( Object[] array ) throws IllegalAccessException
+    private String toStringArray( Object[] array, int depth ) throws IllegalAccessException
     {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -77,7 +86,7 @@ public class GenericToString
         {
             for( int i = 0; i < array.length; i++)
             {
-                stringBuilder.append( retrieveFieldsWithTheirValues( array[ i ] ) );
+                stringBuilder.append( retrieveFieldsWithTheirValues( array[ i ], depth ) );
             }
         }
 
@@ -93,7 +102,7 @@ public class GenericToString
 
     static public void main(String[] args)
     {
-        try
+       try
         {
             System.out.println(new GenericToString().toString(new Point(12,24)));
 
