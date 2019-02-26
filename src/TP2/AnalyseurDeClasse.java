@@ -101,11 +101,15 @@ public class AnalyseurDeClasse
             StringBuilder signature = new StringBuilder();
             for( int i = 0; i < method.getParameters().length; i++ )
             {
-                signature.append( method.getParameters()[ i ].getClass().getSimpleName() );
+                //String parameter = method.getParameterTypes()[ i ].getName();
+                signature.append( method.getParameterTypes()[ i ].getName() );
+
+                if( ( method.getParameters().length > 1 ) && (i != ( method.getParameters().length ) -1 ) )
+                    signature.append( ", " );
             }
 
 
-            System.out.println( "\t" + modifier + " " + returnType + " " + methodName + "( " + signature + " );" );
+            System.out.println( "\t" + modifier + " " + returnType + " " + methodName + "(" + signature + ");" );
         }
     }
 
