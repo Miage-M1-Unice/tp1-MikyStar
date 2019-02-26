@@ -2,6 +2,7 @@ package TP2;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.ObjectStreamClass;
 import java.lang.reflect.Field;
 
 public class GenericToString
@@ -16,7 +17,10 @@ public class GenericToString
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append( object.getClass().getName() );
-        stringBuilder.append( "[" ).append( retrieveFieldsWithTheirValues( object ) ).append( "]" );
+        stringBuilder.append( "[" );
+        stringBuilder.append( retrieveFieldsWithTheirValues( object ) );
+        stringBuilder.append( "; serialVersionUID=" ).append( getSerialVersionUID( object ) );
+        stringBuilder.append( "]" );
 
 
         return stringBuilder.toString();
@@ -38,6 +42,11 @@ public class GenericToString
         }
 
         return stringBuilder.toString();
+    }
+
+    private String getSerialVersionUID( Object object )
+    {
+        return String.valueOf(ObjectStreamClass.lookup( object.getClass() ).getSerialVersionUID());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
